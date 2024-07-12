@@ -1,10 +1,10 @@
-import React from 'react';
-import Results from '../Results/Results';
-import EmptyResult from '../EmptyResult/EmptyResult';
-import './Search.css';
-import ErrorButton from '../ErrorButton/ErrorButton';
+import { useEffect, useState } from "react";
+import Results from "../Results/Results";
+import EmptyResult from "../EmptyResult/EmptyResult";
+import "./Search.css";
+import ErrorButton from "../ErrorButton/ErrorButton";
 
-export interface SearchPeopleResults {
+export interface Character {
   name: string;
   height: number;
   mass: number;
@@ -13,53 +13,48 @@ export interface SearchPeopleResults {
   skin_color: string;
 }
 
-interface ReturnedData {
-  results: SearchPeopleResults[];
+interface CharactersData {
+  results: Character[];
 }
 
-export default class Search extends React.Component {
-  state: {
-    userInput: string;
-    searchResults: SearchPeopleResults[] | null;
-    loading: boolean;
-  } = {
-    userInput: '',
-    searchResults: null,
-    loading: true,
+export const Search = () => {
+  const [searchResults, setSearchResults] = useState<Character[] | null>(null);
+  const [userInput, setUserInput] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const lastSearch: string | null = localStorage.getItem("gunsnfnr.swQuery");
+
+    if (lastSearch) {
+      sendQuery(lastSearch).catch(() => {});
+      setUserInput(lastSearch);
+    } else sendQuery("").catch(() => {});
+  }, []);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(event.target.value);
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      userInput: event.target.value,
-    });
+  const handleClick: () => Promise<void> = async () => {
+    setLoading(true);
+    setUserInput(userInput.trim());
+    localStorage.setItem("gunsnfnr.swQuery", userInput.trim());
+    await sendQuery(userInput.trim());
   };
 
-  handleClick: () => Promise<void> = async () => {
-    this.setState({
-      loading: true,
-      userInput: this.state.userInput.trim(),
-    });
-    localStorage.setItem('gunsnfnr.swQuery', this.state.userInput.trim());
-    await this.sendQuery(this.state.userInput.trim());
-  };
-
-  sendQuery: (searchString: string) => Promise<void> = async (searchString) => {
+  const sendQuery: (searchString: string) => Promise<void> = async (
+    searchString,
+  ) => {
     await fetch(`https://swapi.dev/api/people/?search=${searchString}`)
       .then((resp: Response) => {
         if (resp.status === 200) return resp.json();
       })
-      .then((data: ReturnedData) => {
-        this.setState({
-          loading: false,
-        });
+      .then((data: CharactersData) => {
+        setLoading(false);
         if (data.results.length > 0) {
-          this.setState({
-            searchResults: data.results,
-          });
+          setSearchResults(data.results);
         } else {
-          this.setState({
-            searchResults: [],
-          });
+          setSearchResults([]);
         }
       })
       .catch((error) => {
@@ -67,45 +62,40 @@ export default class Search extends React.Component {
       });
   };
 
-  render(): React.ReactNode {
-    return (
-      <>
-        <div className="search">
-          <input className="input-field" type="text" value={this.state.userInput} onChange={this.handleChange} />
-          <button
-            type="button"
-            onClick={() => {
-              const handler = async () => {
-                await this.handleClick();
-              };
-              handler().catch(() => {});
-            }}
-          >
-            Search
-          </button>
-          <ErrorButton />
-        </div>
-        <section className="results">
-          {this.state.loading && <div className="loading">Loading...</div>}
-          {!this.state.loading &&
-            Array.isArray(this.state.searchResults) &&
-            (this.state.searchResults.length > 0 ? (
-              <Results searchResults={this.state.searchResults} />
-            ) : (
-              <EmptyResult searchQuery={this.state.userInput} />
-            ))}
-        </section>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="search">
+        <input
+          className="input-field"
+          type="text"
+          value={userInput}
+          onChange={handleChange}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            const handler = async () => {
+              await handleClick();
+            };
+            handler().catch(() => {});
+          }}
+        >
+          Search
+        </button>
+        <ErrorButton />
+      </div>
+      <section className="results">
+        {loading && <div className="loading">Loading...</div>}
+        {!loading &&
+          Array.isArray(searchResults) &&
+          (searchResults.length > 0 ? (
+            <Results searchResults={searchResults} />
+          ) : (
+            <EmptyResult searchQuery={userInput} />
+          ))}
+      </section>
+    </>
+  );
+};
 
-  async componentDidMount() {
-    const lastSearch: string | null = localStorage.getItem('gunsnfnr.swQuery');
-    if (lastSearch) {
-      await this.sendQuery(lastSearch);
-      this.setState({
-        userInput: lastSearch,
-      });
-    } else await this.sendQuery('');
-  }
-}
+export default Search;
