@@ -4,6 +4,7 @@ import EmptyResult from "../EmptyResult/EmptyResult";
 import "./Search.css";
 import ErrorButton from "../ErrorButton/ErrorButton";
 import sendQuery from "../../services/send-query";
+import { useLocalStorage } from "../../hooks/use-local-storage";
 
 export interface Character {
   name: string;
@@ -21,29 +22,26 @@ export interface CharactersData {
 export const Search = () => {
   const [searchResults, setSearchResults] = useState<Character[] | null>(null);
 
-  const [userInput, setUserInput] = useState(
-    localStorage.getItem("gunsnfnr.swQuery"),
-  );
+  const [userRequest, setUserRequest] = useLocalStorage("");
+  const [userInput, setUserInput] = useState(userRequest);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getInitialResult = async () => {
-      const initialResult = await sendQuery(userInput);
+      const initialResult = await sendQuery(userRequest);
       setSearchResults(initialResult);
     };
     getInitialResult().catch(() => {});
     setLoading(false);
-  }, [userInput]);
+  }, [userRequest]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
   };
-
   const handleClick: () => Promise<void> = async () => {
     setLoading(true);
-    setUserInput(userInput.trim());
-    localStorage.setItem("gunsnfnr.swQuery", userInput.trim());
-    setSearchResults(await sendQuery(userInput.trim()));
+    setUserRequest(userInput);
+    setSearchResults(await sendQuery(userInput));
     setLoading(false);
   };
 
@@ -76,7 +74,7 @@ export const Search = () => {
           (searchResults.length > 0 ? (
             <Results searchResults={searchResults} />
           ) : (
-            <EmptyResult searchQuery={userInput} />
+            <EmptyResult searchQuery={userRequest} />
           ))}
       </section>
     </>
