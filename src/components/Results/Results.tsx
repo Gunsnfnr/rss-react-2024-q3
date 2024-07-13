@@ -1,5 +1,5 @@
 // import React from "react";
-import "./Results.css";
+import style from "./Results.module.css";
 import { Character } from "../Search/Search";
 
 interface Props {
@@ -11,14 +11,14 @@ const Results = (props: Props) => {
     <>
       {props.searchResults.map((elem: Character, index: number) => {
         return (
-          <div className="star-wars-character" key={index}>
-            <div className="name">{elem.name}</div>
-            <div className="character-data">
-              <div className="height">Height: {elem.height} cm</div>
-              <div className="mass">Mass: {elem.mass} kg</div>
-              <div className="birth-year">Birth year: {elem.birth_year}</div>
-              <div className="eye-color">Eye color: {elem.eye_color}</div>
-              <div className="skin-color">Skin color: {elem.skin_color}</div>
+          <div className={style.star_wars_character} key={index}>
+            <div className={style.name}>{elem.name}</div>
+            <div>
+              <div>Height: {elem.height} cm</div>
+              <div>Mass: {elem.mass} kg</div>
+              <div>Birth year: {elem.birth_year}</div>
+              <div>Eye color: {elem.eye_color}</div>
+              <div>Skin color: {elem.skin_color}</div>
             </div>
           </div>
         );

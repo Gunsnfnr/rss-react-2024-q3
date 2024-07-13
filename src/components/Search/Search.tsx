@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Results from "../Results/Results";
 import EmptyResult from "../EmptyResult/EmptyResult";
-import "./Search.css";
+import style from "./Search.module.css";
 import ErrorButton from "../ErrorButton/ErrorButton";
 import sendQuery from "../../services/send-query";
 import { useLocalStorage } from "../../hooks/use-local-storage";
@@ -21,7 +21,6 @@ export interface CharactersData {
 
 export const Search = () => {
   const [searchResults, setSearchResults] = useState<Character[] | null>(null);
-
   const [userRequest, setUserRequest] = useLocalStorage("");
   const [userInput, setUserInput] = useState(userRequest);
   const [loading, setLoading] = useState(true);
@@ -47,9 +46,9 @@ export const Search = () => {
 
   return (
     <>
-      <div className="search">
+      <div className={style.search}>
         <input
-          className="input-field"
+          className={style.input_field}
           type="text"
           value={userInput}
           onChange={handleChange}
@@ -67,8 +66,8 @@ export const Search = () => {
         </button>
         <ErrorButton />
       </div>
-      <section className="results">
-        {loading && <div className="loading">Loading...</div>}
+      <section className={style.results}>
+        {loading && <div className={style.loading}>Loading...</div>}
         {!loading &&
           Array.isArray(searchResults) &&
           (searchResults.length > 0 ? (

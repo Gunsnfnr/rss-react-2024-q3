@@ -1,4 +1,4 @@
-import "./EmptyResult.css";
+import style from "./EmptyResult.module.css";
 
 interface Props {
   searchQuery: string;
@@ -10,7 +10,7 @@ const EmptyResult = (props: Props) => {
   };
 
   return (
-    <div className="empty">
+    <div className={style.empty}>
       <div>
         Nothing was found for the search term &quot;
         {props.searchQuery ? props.searchQuery : getLastSearch()}

@@ -1,11 +1,13 @@
+import { Route, Routes } from "react-router-dom";
 import Search from "./components/Search/Search";
-import "./App.css";
+import NotFound from "./components/NotFound/NotFound";
 
 const App = () => {
   return (
-    <div className="app">
-      <Search />
-    </div>
+    <Routes>
+      <Route path="/main" element={<Search />}></Route>
+      <Route path="*" element={<NotFound />}></Route>
+    </Routes>
   );
 };
 export default App;
