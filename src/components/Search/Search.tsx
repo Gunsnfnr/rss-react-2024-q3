@@ -3,6 +3,7 @@ import Results from "../Results/Results";
 import EmptyResult from "../EmptyResult/EmptyResult";
 import "./Search.css";
 import ErrorButton from "../ErrorButton/ErrorButton";
+import sendQuery from "../../services/send-query";
 
 export interface Character {
   name: string;
@@ -13,23 +14,26 @@ export interface Character {
   skin_color: string;
 }
 
-interface CharactersData {
+export interface CharactersData {
   results: Character[];
 }
 
 export const Search = () => {
   const [searchResults, setSearchResults] = useState<Character[] | null>(null);
-  const [userInput, setUserInput] = useState("");
+
+  const [userInput, setUserInput] = useState(
+    localStorage.getItem("gunsnfnr.swQuery"),
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const lastSearch: string | null = localStorage.getItem("gunsnfnr.swQuery");
-
-    if (lastSearch) {
-      sendQuery(lastSearch).catch(() => {});
-      setUserInput(lastSearch);
-    } else sendQuery("").catch(() => {});
-  }, []);
+    const getInitialResult = async () => {
+      const initialResult = await sendQuery(userInput);
+      setSearchResults(initialResult);
+    };
+    getInitialResult().catch(() => {});
+    setLoading(false);
+  }, [userInput]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
@@ -39,27 +43,8 @@ export const Search = () => {
     setLoading(true);
     setUserInput(userInput.trim());
     localStorage.setItem("gunsnfnr.swQuery", userInput.trim());
-    await sendQuery(userInput.trim());
-  };
-
-  const sendQuery: (searchString: string) => Promise<void> = async (
-    searchString,
-  ) => {
-    await fetch(`https://swapi.dev/api/people/?search=${searchString}`)
-      .then((resp: Response) => {
-        if (resp.status === 200) return resp.json();
-      })
-      .then((data: CharactersData) => {
-        setLoading(false);
-        if (data.results.length > 0) {
-          setSearchResults(data.results);
-        } else {
-          setSearchResults([]);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setSearchResults(await sendQuery(userInput.trim()));
+    setLoading(false);
   };
 
   return (
