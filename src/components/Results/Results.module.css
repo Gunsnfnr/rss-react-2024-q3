@@ -1,0 +1,17 @@
+.star_wars_character {
+  min-width: 180px;
+  padding: 6px 10px;
+  margin: 3px 3px;
+  object-fit: contain;
+  text-decoration: none;
+  border: 1px solid gold;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: #2e2525;
+  }
+
+  .name {
+    color: gold;
+  }
+}
