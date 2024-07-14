@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+.prev,
+.next {
+  padding: 3px 5px;
+}
+
+.page_number {
+  color: #fff;
+  padding: 3px 10px;
+}

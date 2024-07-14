@@ -5,7 +5,7 @@ import style from "./Search.module.css";
 import ErrorButton from "../ErrorButton/ErrorButton";
 import sendQuery from "../../services/send-query";
 import { useLocalStorage } from "../../hooks/use-local-storage";
-import { Link } from "react-router-dom";
+import Pagination from "../Pagination/Pagination";
 
 export interface Character {
   name: string;
@@ -33,7 +33,7 @@ export const Search = () => {
   useEffect(() => {
     const getInitialResult = async () => {
       const initialResult = await sendQuery(userRequest);
-      setSearchResults(initialResult);
+      setSearchResults(initialResult?.results);
     };
     getInitialResult().catch(() => {});
     setLoading(false);
@@ -71,18 +71,19 @@ export const Search = () => {
         </button>
         <ErrorButton />
       </section>
-      <Link to="/main">
-        <section className={style.results}>
-          {loading && <div className={style.loading}>Loading...</div>}
-          {!loading &&
-            Array.isArray(searchResults) &&
-            (searchResults.length > 0 ? (
+      <section className={style.results}>
+        {loading && <div className={style.loading}>Loading...</div>}
+        {!loading &&
+          Array.isArray(searchResults) &&
+          (searchResults.length > 0 ? (
+            <>
               <Results searchResults={searchResults} />
-            ) : (
-              <EmptyResult searchQuery={userRequest} />
-            ))}
-        </section>
-      </Link>
+              <Pagination />
+            </>
+          ) : (
+            <EmptyResult searchQuery={userRequest} />
+          ))}
+      </section>
     </main>
   );
 };

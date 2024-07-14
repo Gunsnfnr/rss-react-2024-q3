@@ -6,7 +6,6 @@ import { Character } from "../Search/Search";
 
 export default function CharacterCard() {
   const { id } = useParams();
-  console.log("id: ", id);
   const [loading, setLoading] = useState(true);
   const [character, setCharacter] = useState(undefined);
 
