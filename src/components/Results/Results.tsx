@@ -1,6 +1,7 @@
 // import React from "react";
 import style from "./Results.module.css";
 import { Character } from "../Search/Search";
+import { Link } from "react-router-dom";
 
 interface Props {
   searchResults: Character[];
@@ -10,17 +11,14 @@ const Results = (props: Props) => {
   return (
     <>
       {props.searchResults.map((elem: Character, index: number) => {
+        const url = elem.url;
+        const idOfCharacter = url.split("people/")[1].slice(0, -1);
         return (
-          <div className={style.star_wars_character} key={index}>
-            <div className={style.name}>{elem.name}</div>
-            <div>
-              <div>Height: {elem.height} cm</div>
-              <div>Mass: {elem.mass} kg</div>
-              <div>Birth year: {elem.birth_year}</div>
-              <div>Eye color: {elem.eye_color}</div>
-              <div>Skin color: {elem.skin_color}</div>
+          <Link to={`card/${idOfCharacter}`} key={index}>
+            <div className={style.star_wars_character}>
+              <div className={style.name}>{elem.name}</div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </>

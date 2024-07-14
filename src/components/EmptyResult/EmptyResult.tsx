@@ -11,12 +11,12 @@ const EmptyResult = (props: Props) => {
 
   return (
     <div className={style.empty}>
-      <div>
-        Nothing was found for the search term &quot;
+      <div className={style.no_result}>
+        Nothing was found for&nbsp;the&nbsp;search&nbsp;term&nbsp;&quot;
         {props.searchQuery ? props.searchQuery : getLastSearch()}
         &quot;.
       </div>
-      <div>
+      <div className={style.no_result}>
         Don&apos;t forget, we are looking for the Star Wars characters o_0
       </div>
     </div>

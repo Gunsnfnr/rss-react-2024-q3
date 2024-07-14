@@ -9,12 +9,9 @@ const sendQuery: (
       if (resp.status === 200) return resp.json();
     })
     .then((data: CharactersData) => {
-      // setLoading(false);
       if (data.results.length > 0) {
-        // setSearchResults(data.results);
         fetchedResult = data.results;
       } else {
-        // setSearchResults([]);
         fetchedResult = [];
       }
     })

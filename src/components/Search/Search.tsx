@@ -5,6 +5,7 @@ import style from "./Search.module.css";
 import ErrorButton from "../ErrorButton/ErrorButton";
 import sendQuery from "../../services/send-query";
 import { useLocalStorage } from "../../hooks/use-local-storage";
+import { Link } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -13,10 +14,14 @@ export interface Character {
   birth_year: string;
   eye_color: string;
   skin_color: string;
+  url: string;
 }
 
 export interface CharactersData {
   results: Character[];
+  previous: string | null;
+  count: number;
+  next: string | null;
 }
 
 export const Search = () => {
@@ -45,8 +50,8 @@ export const Search = () => {
   };
 
   return (
-    <>
-      <div className={style.search}>
+    <main>
+      <section className={style.search}>
         <input
           className={style.input_field}
           type="text"
@@ -65,18 +70,20 @@ export const Search = () => {
           Search
         </button>
         <ErrorButton />
-      </div>
-      <section className={style.results}>
-        {loading && <div className={style.loading}>Loading...</div>}
-        {!loading &&
-          Array.isArray(searchResults) &&
-          (searchResults.length > 0 ? (
-            <Results searchResults={searchResults} />
-          ) : (
-            <EmptyResult searchQuery={userRequest} />
-          ))}
       </section>
-    </>
+      <Link to="/main">
+        <section className={style.results}>
+          {loading && <div className={style.loading}>Loading...</div>}
+          {!loading &&
+            Array.isArray(searchResults) &&
+            (searchResults.length > 0 ? (
+              <Results searchResults={searchResults} />
+            ) : (
+              <EmptyResult searchQuery={userRequest} />
+            ))}
+        </section>
+      </Link>
+    </main>
   );
 };
 
