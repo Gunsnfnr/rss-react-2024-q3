@@ -12,12 +12,14 @@ export default function CharacterCard() {
   useEffect(() => {
     setLoading(true);
     const getCharacter = async () => {
-      const newCharacter: Character | undefined = await callForACharacter(id);
-      setCharacter(newCharacter);
+      if (id) {
+        const newCharacter: Character | undefined = await callForACharacter(id);
+        setCharacter(newCharacter);
+      }
     };
     getCharacter().catch(() => {});
     setLoading(false);
-  }, [id, loading, character]);
+  }, [id]);
 
   return (
     <>

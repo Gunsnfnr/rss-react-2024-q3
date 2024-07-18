@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useLocalStorage = () => {
   const [userInput, setUserInput] = useState<string>(
-    localStorage.getItem("gunsnfnr.swQuery"),
+    localStorage.getItem("gunsnfnr.swQuery") ?? "",
   );
 
   useEffect(() => {

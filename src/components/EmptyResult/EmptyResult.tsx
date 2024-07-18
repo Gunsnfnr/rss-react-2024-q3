@@ -5,7 +5,7 @@ interface Props {
 }
 
 const EmptyResult = (props: Props) => {
-  const getLastSearch: string = () => {
+  const getLastSearch = (): string => {
     return localStorage.getItem("gunsnfnr.swQuery") ?? "";
   };
 
