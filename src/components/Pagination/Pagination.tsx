@@ -1,4 +1,4 @@
-import style from "./Pagination.module.css";
+import style from './Pagination.module.css';
 
 export default function Pagination() {
   return (

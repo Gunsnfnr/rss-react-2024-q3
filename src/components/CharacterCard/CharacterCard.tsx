@@ -1,30 +1,30 @@
-import { Link, useParams } from "react-router-dom";
-import style from "./CharacterCard.module.css";
-import callForACharacter from "../../services/character-call";
-import { useEffect, useState } from "react";
-import { Character } from "../Search/Search";
+import { Link, useParams } from 'react-router-dom';
+import style from './CharacterCard.module.css';
+import fetchCharacter from '../../services/fetch-character';
+import { useEffect, useState } from 'react';
+import { Character } from '../Main/Main';
 
 export default function CharacterCard() {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [character, setCharacter] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [character, setCharacter] = useState<Character | undefined>(undefined);
 
   useEffect(() => {
-    setLoading(true);
+    setIsLoading(true);
     const getCharacter = async () => {
       if (id) {
-        const newCharacter: Character | undefined = await callForACharacter(id);
+        const newCharacter: Character | undefined = await fetchCharacter(id);
         setCharacter(newCharacter);
       }
     };
     getCharacter().catch(() => {});
-    setLoading(false);
+    setIsLoading(false);
   }, [id]);
 
   return (
     <>
-      {loading && <div className={style.loading_card}>Loading...</div>}
-      {!loading && character && (
+      {isLoading && <div className={style.loading_card}>Loading...</div>}
+      {!isLoading && character && (
         <div className={style.character_card}>
           <div>
             <div className={style.name}>{character.name}</div>
@@ -35,7 +35,7 @@ export default function CharacterCard() {
               <div>Eye color: {character.eye_color}</div>
               <div>Skin color: {character.skin_color}</div>
             </div>
-            <Link to="/main">
+            <Link to="/">
               <button className={style.close}>Close card</button>
             </Link>
           </div>

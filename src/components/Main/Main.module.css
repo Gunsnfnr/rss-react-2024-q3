@@ -14,7 +14,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   max-width: 280px;
-  margin: 10px 40px;
+  padding: 10px 40px;
   text-decoration: none;
 }
 

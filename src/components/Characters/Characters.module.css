@@ -14,4 +14,7 @@
   .name {
     color: gold;
   }
+  .link {
+    font-weight: 500;
+  }
 }

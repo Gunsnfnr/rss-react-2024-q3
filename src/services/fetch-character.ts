@@ -1,8 +1,6 @@
-import { Character } from "../components/Search/Search";
+import { Character } from '../components/Main/Main';
 
-const callForACharacter: (
-  idOfCharacter: string,
-) => Promise<Character | undefined> = async (idOfCharacter) => {
+const fetchCharacter: (idOfCharacter: string) => Promise<Character | undefined> = async (idOfCharacter) => {
   let character: Character | undefined;
   await fetch(`https://swapi.dev/api/people/${idOfCharacter}/`)
     .then((resp: Response) => {
@@ -16,4 +14,4 @@ const callForACharacter: (
     });
   return character;
 };
-export default callForACharacter;
+export default fetchCharacter;

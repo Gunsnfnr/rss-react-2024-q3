@@ -1,4 +1,4 @@
-import style from "./EmptyResult.module.css";
+import style from './EmptyResult.module.css';
 
 interface Props {
   searchQuery: string;
@@ -6,7 +6,7 @@ interface Props {
 
 const EmptyResult = (props: Props) => {
   const getLastSearch = (): string => {
-    return localStorage.getItem("gunsnfnr.swQuery") ?? "";
+    return localStorage.getItem('gunsnfnr.swQuery') ?? '';
   };
 
   return (
@@ -16,9 +16,7 @@ const EmptyResult = (props: Props) => {
         {props.searchQuery ? props.searchQuery : getLastSearch()}
         &quot;.
       </div>
-      <div className={style.no_result}>
-        Don&apos;t forget, we are looking for the Star Wars characters o_0
-      </div>
+      <div className={style.no_result}>Don&apos;t forget, we are looking for the Star Wars characters o_0</div>
     </div>
   );
 };

@@ -8,7 +8,7 @@
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 700px) {
   .character_card,
   .loading_card {
     position: absolute;
