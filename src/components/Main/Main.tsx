@@ -3,10 +3,10 @@ import Characters from '../Characters/Characters';
 import EmptyResult from '../EmptyResult/EmptyResult';
 import style from './Main.module.css';
 import ErrorButton from '../ErrorButton/ErrorButton';
-import fetchCharacters from '../../services/fetch-characters';
 import { useLocalStorage } from '../../hooks/use-local-storage';
 import Pagination from '../Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
+import { swCharactersApi } from '../../store/sw-characters-api';
 
 export interface Character {
   name: string;
@@ -22,30 +22,23 @@ export interface CharactersData {
   results?: Character[];
 }
 
-export const Main = () => {
+const Main = () => {
   const [searchResults, setSearchResults] = useState<Character[] | null | undefined>(null);
   const [storedSearchedValue, setStoredSearchedValue] = useLocalStorage('');
   const [searchInputValue, setSearchInputValue] = useState(storedSearchedValue);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { data, isFetching } = swCharactersApi.useSearchCharactersQuery(storedSearchedValue);
 
   useEffect(() => {
-    const getInitialResult = async () => {
-      const initialResult = await fetchCharacters(storedSearchedValue, 1);
-      setSearchResults(initialResult?.results);
-    };
-    getInitialResult().catch(() => {});
-    setIsLoading(false);
-  }, [storedSearchedValue]);
+    if (data) setSearchResults(data.results);
+  }, [data]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(event.target.value);
   };
-  const handleSearchClick: () => Promise<void> = async () => {
-    setIsLoading(true);
+  const handleSearchClick: () => void = () => {
     setStoredSearchedValue(searchInputValue);
-    setSearchResults((await fetchCharacters(searchInputValue, 1))?.results);
-    setIsLoading(false);
+    if (data) setSearchResults(data.results);
   };
   const toStart = (event: React.MouseEvent<HTMLElement>) => {
     if (event.currentTarget instanceof HTMLElement && event.target instanceof HTMLElement) {
@@ -64,10 +57,7 @@ export const Main = () => {
         <button
           type="button"
           onClick={() => {
-            const handler = async () => {
-              await handleSearchClick();
-            };
-            handler().catch(() => {});
+            handleSearchClick();
           }}
         >
           Search
@@ -75,8 +65,8 @@ export const Main = () => {
         <ErrorButton />
       </section>
       <section className={style.results} onClick={toStart}>
-        {isLoading && <div className={style.loading}>Loading...</div>}
-        {!isLoading &&
+        {isFetching && <div className={style.loading}>Loading...</div>}
+        {!isFetching &&
           (searchResults && searchResults.length > 0 ? (
             <>
               <Characters searchResults={searchResults} />

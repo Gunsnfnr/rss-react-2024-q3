@@ -1,5 +1,5 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { Main } from './components/Main/Main';
+import Main from './components/Main/Main';
 import CharacterCard from './components/CharacterCard/CharacterCard';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 
