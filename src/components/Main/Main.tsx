@@ -37,6 +37,7 @@ const Main = () => {
     setSearchInputValue(event.target.value);
   };
   const handleSearchClick: () => void = () => {
+    navigate('/');
     setStoredSearchedValue(searchInputValue);
     if (data) setSearchResults(data.results);
   };
