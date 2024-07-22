@@ -1,7 +1,7 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import Main from './components/Main/Main';
-import CharacterCard from './components/CharacterCard/CharacterCard';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import CharacterDetails from './components/CharacterDetails/CharacterDetails';
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
           </>
         }
       >
-        <Route path="card/:id" element={<CharacterCard />} />
+        <Route path="card/:id" element={<CharacterDetails />} />
       </Route>
       <Route path="*" element={<PageNotFound />}></Route>
     </Routes>

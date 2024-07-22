@@ -1,58 +1,24 @@
-.character_card {
-  padding: 30px;
-  border: 1px solid silver;
-  border-radius: 7px;
+.star_wars_character {
+  display: flex;
+  min-width: 180px;
+  padding: 6px 10px;
+  margin: 3px 3px;
+  object-fit: contain;
+  text-decoration: none;
+  border: 1px solid gold;
+  border-radius: 3px;
 
   &:hover {
     background-color: #2e2525;
   }
-}
 
-@media screen and (min-width: 700px) {
-  .character_card,
-  .loading_card {
-    position: absolute;
-    right: 10%;
-    top: 90px;
-    padding: 50px;
+  .name {
+    color: gold;
   }
-}
-
-@media screen and (min-width: 750px) {
-  .character_card,
-  .loading_card {
-    right: 15%;
+  .link {
+    font-weight: 500;
   }
-}
-
-@media screen and (min-width: 800px) {
-  .character_card {
-    right: 20%;
+  .checkbox {
+    accent-color: gold;
   }
-}
-
-@media screen and (min-width: 1100px) {
-  .character_card {
-    right: 30%;
-  }
-}
-.name {
-  margin-bottom: 30px;
-  font-weight: bolder;
-  font-size: 1.2rem;
-}
-
-.close {
-  margin-top: 30px;
-  margin-left: 10px;
-  background-color: #8a8a8a;
-}
-
-.close:hover {
-  background-color: #b9b9b9;
-}
-
-.loading_card {
-  text-decoration: none;
-  color: #fff;
 }

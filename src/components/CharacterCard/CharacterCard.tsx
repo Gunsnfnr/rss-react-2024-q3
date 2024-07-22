@@ -1,32 +1,44 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Character } from '../Main/Main';
+import { useState } from 'react';
 import style from './CharacterCard.module.css';
-import { swCharacterApi } from '../../store/sw-character-api';
+import { useDispatch } from 'react-redux';
+import { addCard, removeCard } from '../../store/cardsSlice';
 
-export default function CharacterCard() {
-  const { id } = useParams<string>();
-  const { data, isFetching } = swCharacterApi.useGetCharacterByIdQuery(id);
-  const character = data;
+interface Props {
+  character: Character;
+}
+
+export default function CharacterCard(props: Props) {
+  const url = props.character.url;
+  const idOfCharacter = url.split('people/')[1].slice(0, -1);
+  const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleCheckboxChange = (event: React.ChangeEvent) => {
+    event.stopPropagation();
+    setIsChecked(!isChecked);
+    if (!isChecked) {
+      dispatch(addCard(props.character));
+    } else {
+      dispatch(removeCard(props.character));
+    }
+  };
 
   return (
-    <>
-      {isFetching && <div className={style.loading_card}>Loading...</div>}
-      {!isFetching && character && (
-        <div className={style.character_card}>
-          <div>
-            <div className={style.name}>{character.name}</div>
-            <div>
-              <div>Height: {character.height} cm</div>
-              <div>Mass: {character.mass} kg</div>
-              <div>Birth year: {character.birth_year}</div>
-              <div>Eye color: {character.eye_color}</div>
-              <div>Skin color: {character.skin_color}</div>
-            </div>
-            <Link to="/">
-              <button className={style.close}>Close card</button>
-            </Link>
-          </div>
-        </div>
-      )}
-    </>
+    <Link to={`card/${idOfCharacter}`} className={style.link}>
+      <div className={style.star_wars_character}>
+        <input
+          className={style.checkbox}
+          type="checkbox"
+          checked={isChecked}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+          onChange={handleCheckboxChange}
+        />
+        <div className={style.name}>{props.character.name}</div>
+      </div>
+    </Link>
   );
 }
