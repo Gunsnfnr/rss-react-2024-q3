@@ -7,6 +7,7 @@ import { useLocalStorage } from '../../hooks/use-local-storage';
 import Pagination from '../Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { swCharactersApi } from '../../store/sw-characters-api';
+import SelectedElements from '../SelectedElements/SelectedElements';
 
 export interface Character {
   name: string;
@@ -72,6 +73,7 @@ const Main = () => {
             <>
               <Characters searchResults={searchResults} />
               <Pagination />
+              <SelectedElements />
             </>
           ) : (
             <EmptyResult searchQuery={storedSearchedValue} />

@@ -1,0 +1,32 @@
+.flyout {
+  position: fixed;
+  bottom: 0;
+  right: 5%;
+  padding: 20px;
+  border: 1px solid silver;
+  border-radius: 8px 8px 0 0;
+}
+.info {
+  margin-bottom: 10px;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.button {
+  border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  padding: 0.2rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: #7b87ba;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.button:hover {
+  border-color: silver;
+  background-color: rgb(165, 175, 221);
+}
