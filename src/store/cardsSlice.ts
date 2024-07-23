@@ -21,9 +21,13 @@ export const cardsSlice = createSlice({
       state.selectedCards = state.selectedCards.filter((element) => element.name !== action.payload.name);
       console.log('state.selectedCards: ', state.selectedCards);
     },
+    removeAllCards: (state) => {
+      state.selectedCards = [];
+      console.log('state.selectedCards: ', state.selectedCards);
+    },
   },
 });
 
-export const { addCard, removeCard } = cardsSlice.actions;
+export const { addCard, removeCard, removeAllCards } = cardsSlice.actions;
 
 export default cardsSlice.reducer;
