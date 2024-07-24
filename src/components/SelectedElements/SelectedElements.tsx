@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import style from './SelectedElements.module.css';
 import { removeAllCards } from '../../store/cardsSlice';
+import Download from '../Download/Download';
 
 export default function SelectedElements() {
   const numberOfSelectedCards = useSelector((state: RootState) => state.cards.selectedCards.length);
@@ -20,7 +21,7 @@ export default function SelectedElements() {
           <a className={style.button} onClick={unselectAllHandler}>
             Unselect all
           </a>
-          <a className={style.button}>Download</a>
+          <Download />
         </div>
       </div>
     )
