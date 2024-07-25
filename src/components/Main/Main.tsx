@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Characters from '../Characters/Characters';
 import EmptyResult from '../EmptyResult/EmptyResult';
 import style from './Main.module.css';
-import ErrorButton from '../ErrorButton/ErrorButton';
 import { useLocalStorage } from '../../hooks/use-local-storage';
 import Pagination from '../Pagination/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { swCharactersApi } from '../../store/sw-characters-api';
 import SelectedElements from '../SelectedElements/SelectedElements';
+import ChangeThemeButton from '../ChangeThemeButton/ChangeThemeButton';
+import { ThemeContext } from '../../context/themeContext';
 
 export interface Character {
   name: string;
@@ -29,10 +30,11 @@ const Main = () => {
   const [searchInputValue, setSearchInputValue] = useState(storedSearchedValue);
   const navigate = useNavigate();
   const { data, isFetching } = swCharactersApi.useSearchCharactersQuery(storedSearchedValue);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (data) setSearchResults(data.results);
-  }, [data]);
+  }, [data, theme]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(event.target.value);
@@ -53,7 +55,7 @@ const Main = () => {
   };
 
   return (
-    <main>
+    <main className={theme === 'light' ? style.light : style.dark}>
       <section className={style.search}>
         <input className={style.input_field} type="text" value={searchInputValue} onChange={handleInputChange} />
         <button
@@ -64,7 +66,7 @@ const Main = () => {
         >
           Search
         </button>
-        <ErrorButton />
+        <ChangeThemeButton />
       </section>
       <section className={style.results} onClick={toStart}>
         {isFetching && <div className={style.loading}>Loading...</div>}

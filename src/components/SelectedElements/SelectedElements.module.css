@@ -1,19 +1,33 @@
-.flyout {
+:root {
+  --element-border: silver;
+  --text-color: #fff;
+}
+.flyout,
+.flyout_light {
   position: fixed;
   bottom: 0;
   right: 5%;
   padding: 20px;
-  border: 1px solid silver;
+  border: 1px solid var(--card-border);
   border-radius: 8px 8px 0 0;
+  color: var(--text);
 }
+
+.flyout_light {
+  --element-border: rgb(112, 97, 10);
+  --text: #020202;
+}
+
 .info {
   margin-bottom: 10px;
 }
+
 .buttons {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
+
 .button {
   border-radius: 5px;
   border: 1px solid #e1e1e1;
@@ -24,6 +38,7 @@
   background-color: #7b87ba;
   cursor: pointer;
   transition: background-color 0.25s;
+  color: #fff;
 }
 
 .button:hover {

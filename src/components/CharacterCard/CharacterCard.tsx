@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Character } from '../Main/Main';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './CharacterCard.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard, removeCard } from '../../store/cardsSlice';
 import { RootState } from '../../store';
+import { ThemeContext } from '../../context/themeContext';
 
 interface Props {
   character: Character;
@@ -25,7 +26,7 @@ export default function CharacterCard(props: Props) {
       setIsChecked(true);
     } else setIsChecked(false);
   }, [selectedCards, props.character.name]);
-
+  const { theme } = useContext(ThemeContext);
   const handleCheckboxChange = (event: React.ChangeEvent) => {
     event.stopPropagation();
     setIsChecked(!isChecked);
@@ -38,7 +39,7 @@ export default function CharacterCard(props: Props) {
 
   return (
     <Link to={`card/${idOfCharacter}`} className={style.link}>
-      <div className={style.star_wars_character}>
+      <div className={theme === 'light' ? style.star_wars_character_light : style.star_wars_character}>
         <input
           className={style.checkbox}
           type="checkbox"
