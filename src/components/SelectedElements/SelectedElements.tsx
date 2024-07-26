@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../context/themeContext';
 
 export default function SelectedElements() {
-  const numberOfSelectedCards = useSelector((state: RootState) => state.cards.selectedCards.length);
+  const numberOfSelectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards.length);
   const dispatch = useDispatch();
   const unselectAllHandler = () => {
     dispatch(removeAllCards());

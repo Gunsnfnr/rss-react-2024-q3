@@ -1,14 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
 import style from './CharacterDetails.module.css';
-import { swCharacterApi } from '../../store/sw-character-api';
+import { swCharactersApi } from '../../store/apiSlice';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/themeContext';
 
 export default function CharacterDetails() {
   const { id } = useParams<string>();
-  const { data, isFetching } = swCharacterApi.useGetCharacterByIdQuery(id);
-  const character = data;
-
+  const { data: character, isFetching } = swCharactersApi.useGetCharacterByIdQuery(id);
   const { theme } = useContext(ThemeContext);
 
   return (

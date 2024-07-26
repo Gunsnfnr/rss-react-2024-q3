@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Character } from '../components/Main/Main';
 
-export interface cardsState {
+export interface SelectedCharactersCardsState {
   selectedCards: Character[];
 }
 
-const initialState: cardsState = {
+const initialState: SelectedCharactersCardsState = {
   selectedCards: [],
 };
 
 export const cardsSlice = createSlice({
-  name: 'cards',
+  name: 'charactersCards',
   initialState,
   reducers: {
     addCard: (state, action: PayloadAction<Character>) => {

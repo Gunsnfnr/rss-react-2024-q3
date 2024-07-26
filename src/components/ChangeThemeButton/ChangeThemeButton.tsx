@@ -6,7 +6,7 @@ export default function ChangeThemeButton() {
 
   return (
     <div>
-      <button onClick={() => changeTheme()} title="Click to change">
+      <button onClick={changeTheme} title="Click to change">
         Theme: {theme}
       </button>
     </div>

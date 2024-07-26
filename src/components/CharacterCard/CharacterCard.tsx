@@ -16,7 +16,7 @@ export default function CharacterCard(props: Props) {
   const idOfCharacter = url.split('people/')[1].slice(0, -1);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
-  const selectedCards = useSelector((state: RootState) => state.cards.selectedCards);
+  const selectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards);
 
   useEffect(() => {
     const isInSelected = selectedCards.some((card) => {
@@ -27,8 +27,8 @@ export default function CharacterCard(props: Props) {
     } else setIsChecked(false);
   }, [selectedCards, props.character.name]);
   const { theme } = useContext(ThemeContext);
-  const handleCheckboxChange = (event: React.ChangeEvent) => {
-    event.stopPropagation();
+  const handleCheckboxChange = (ev: React.ChangeEvent) => {
+    ev.stopPropagation();
     setIsChecked(!isChecked);
     if (!isChecked) {
       dispatch(addCard(props.character));

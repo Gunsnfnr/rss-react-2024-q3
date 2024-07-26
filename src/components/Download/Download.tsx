@@ -4,8 +4,8 @@ import style from './Download.module.css';
 import { RootState } from '../../store';
 
 export default function Download() {
-  const selectedCards = useSelector((state: RootState) => state.cards.selectedCards);
-  const numberOfSelectedCards = useSelector((state: RootState) => state.cards.selectedCards.length);
+  const selectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards);
+  const numberOfSelectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards.length);
 
   const getACsv = (): string => {
     const download = (data: string) => {
