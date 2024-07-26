@@ -6,7 +6,7 @@ import Download from '../Download/Download';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/themeContext';
 
-export default function SelectedElements() {
+const SelectedElements = () => {
   const numberOfSelectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards.length);
   const dispatch = useDispatch();
   const unselectAllHandler = () => {
@@ -27,4 +27,6 @@ export default function SelectedElements() {
       </div>
     )
   );
-}
+};
+
+export default SelectedElements;

@@ -4,7 +4,7 @@ import { swCharactersApi } from '../../store/apiSlice';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/themeContext';
 
-export default function CharacterDetails() {
+const CharacterDetails = () => {
   const { id } = useParams<string>();
   const { data: character, isFetching } = swCharactersApi.useGetCharacterByIdQuery(id);
   const { theme } = useContext(ThemeContext);
@@ -33,4 +33,6 @@ export default function CharacterDetails() {
       )}
     </>
   );
-}
+};
+
+export default CharacterDetails;

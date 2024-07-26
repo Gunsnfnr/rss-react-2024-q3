@@ -11,7 +11,7 @@ interface Props {
   character: Character;
 }
 
-export default function CharacterCard(props: Props) {
+const CharacterCard = (props: Props) => {
   const url = props.character.url;
   const idOfCharacter = url.split('people/')[1].slice(0, -1);
   const [isChecked, setIsChecked] = useState(false);
@@ -26,7 +26,9 @@ export default function CharacterCard(props: Props) {
       setIsChecked(true);
     } else setIsChecked(false);
   }, [selectedCards, props.character.name]);
+
   const { theme } = useContext(ThemeContext);
+
   const handleCheckboxChange = (ev: React.ChangeEvent) => {
     ev.stopPropagation();
     setIsChecked(!isChecked);
@@ -53,4 +55,6 @@ export default function CharacterCard(props: Props) {
       </div>
     </Link>
   );
-}
+};
+
+export default CharacterCard;

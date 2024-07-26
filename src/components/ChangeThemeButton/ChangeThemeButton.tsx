@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/themeContext';
 
-export default function ChangeThemeButton() {
+const ChangeThemeButton = () => {
   const { theme, changeTheme } = useContext(ThemeContext);
 
   return (
@@ -11,4 +11,6 @@ export default function ChangeThemeButton() {
       </button>
     </div>
   );
-}
+};
+
+export default ChangeThemeButton;

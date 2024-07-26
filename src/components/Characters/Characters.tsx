@@ -18,4 +18,5 @@ const Characters = (props: Props) => {
     <EmptyResult searchQuery={props.searchQuery} />
   );
 };
+
 export default Characters;

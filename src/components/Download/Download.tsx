@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import style from './Download.module.css';
 import { RootState } from '../../store';
 
-export default function Download() {
+const Download = () => {
   const selectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards);
   const numberOfSelectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards.length);
 
@@ -34,4 +34,6 @@ export default function Download() {
       Download
     </a>
   );
-}
+};
+
+export default Download;

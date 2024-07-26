@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Characters from '../Characters/Characters';
-// import EmptyResult from '../EmptyResult/EmptyResult';
 import style from './Main.module.css';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import Pagination from '../Pagination/Pagination';

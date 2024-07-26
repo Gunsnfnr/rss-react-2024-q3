@@ -1,6 +1,5 @@
 import style from './Pagination.module.css';
-
-export default function Pagination() {
+const Pagination = () => {
   return (
     <div className={style.pagination}>
       <button className={style.prev}>Prev</button>
@@ -8,4 +7,6 @@ export default function Pagination() {
       <button className={style.next}>Next</button>
     </div>
   );
-}
+};
+
+export default Pagination;
