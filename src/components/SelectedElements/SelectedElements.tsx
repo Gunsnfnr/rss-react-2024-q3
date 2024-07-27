@@ -9,10 +9,11 @@ import { ThemeContext } from '../../context/themeContext';
 const SelectedElements = () => {
   const numberOfSelectedCards = useSelector((state: RootState) => state.charactersCards.selectedCards.length);
   const dispatch = useDispatch();
+  const { theme } = useContext(ThemeContext);
+
   const unselectAllHandler = () => {
     dispatch(removeAllCards());
   };
-  const { theme } = useContext(ThemeContext);
 
   return (
     numberOfSelectedCards > 0 && (

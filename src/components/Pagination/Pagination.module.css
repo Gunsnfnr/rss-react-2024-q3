@@ -16,3 +16,8 @@
   color: var(--text);
   padding: 3px 10px;
 }
+
+.prev:disabled,
+.next:disabled {
+  cursor: default;
+}

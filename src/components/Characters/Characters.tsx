@@ -2,12 +2,12 @@ import { Character } from '../Main/Main';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import EmptyResult from '../EmptyResult/EmptyResult';
 
-interface Props {
+interface CharacterProps {
   searchResults: Character[];
   searchQuery: string;
 }
 
-const Characters = (props: Props) => {
+const Characters = (props: CharacterProps) => {
   return props.searchResults.length > 0 ? (
     <>
       {props.searchResults.map((ch: Character) => (

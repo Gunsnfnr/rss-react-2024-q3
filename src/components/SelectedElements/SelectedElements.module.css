@@ -1,21 +1,41 @@
 :root {
   --element-border: silver;
   --text-color: #fff;
+  --flyout-background: #2e2525;
+  --buttons-border: #e1e1e1;
 }
+
+@keyframes slideIn {
+  0% {
+    bottom: -107px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
 .flyout,
 .flyout_light {
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   right: 5%;
   padding: 20px;
-  border: 1px solid var(--card-border);
+  border: 1px solid rgb(54, 54, 54);
+  border-width: 1px 1px 0 1px;
   border-radius: 8px 8px 0 0;
   color: var(--text);
+  animation:
+    slideIn 500ms ease-in,
+    ease-out;
 }
-
+.flyout {
+  background: var(--flyout-background);
+}
 .flyout_light {
   --element-border: rgb(112, 97, 10);
   --text: #020202;
+  --buttons-border: #100f47;
+  background-color: #e2e2df;
 }
 
 .info {
@@ -30,7 +50,7 @@
 
 .button {
   border-radius: 5px;
-  border: 1px solid #e1e1e1;
+  border: 1px solid var(--buttons-border);
   padding: 0.2rem 1.2rem;
   font-size: 1rem;
   font-weight: 400;

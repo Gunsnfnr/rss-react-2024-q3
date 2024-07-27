@@ -2,11 +2,11 @@ import { useContext } from 'react';
 import style from './EmptyResult.module.css';
 import { ThemeContext } from '../../context/themeContext';
 
-interface Props {
+interface EmptyResultProps {
   searchQuery: string;
 }
 
-const EmptyResult = (props: Props) => {
+const EmptyResult = (props: EmptyResultProps) => {
   const getLastSearch = (): string => {
     return localStorage.getItem('gunsnfnr.swQuery') ?? '';
   };

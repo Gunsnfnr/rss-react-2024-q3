@@ -1,5 +1,5 @@
 main {
-  --pale-border: silver;
+  --border-color: silver;
   --buttons-border: #e1e1e1;
   --text: #fff;
   --background: #353535;
@@ -10,14 +10,14 @@ main {
   background-color: var(--background);
 }
 main.light {
-  --pale-border: rgb(54, 54, 54);
+  --border-color: rgb(54, 54, 54);
   --buttons-border: #100f47;
   --text: #1f0303;
   --background: #d4d4d4;
 }
 
 main.dark {
-  --pale-border: silver;
+  --border-color: silver;
   --buttons-border: #e1e1e1;
   --text: #fff;
 }
@@ -26,7 +26,7 @@ main.dark {
   display: flex;
   gap: 20px;
   padding: 10px 0 20px 40px;
-  border-bottom: 1px solid var(--pale-border);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .input_field {
@@ -60,9 +60,13 @@ button {
   transition: background-color 0.25s;
 }
 
-button:hover {
-  border-color: var(--pale-border);
+button:not(:disabled):hover {
+  border-color: var(--border-color);
   background-color: rgb(165, 175, 221);
+}
+
+button:disabled {
+  border-color: #7b87ba;
 }
 
 a {

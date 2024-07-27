@@ -26,6 +26,7 @@
   }
   .checkbox {
     accent-color: var(--character-card-border);
+    margin-right: 10px;
   }
 }
 .star_wars_character_light {

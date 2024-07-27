@@ -28,7 +28,11 @@ const Main = () => {
   const [storedSearchedQuery, setStoredSearchedQuery] = useLocalStorage('');
   const [searchInputQuery, setSearchInputQuery] = useState(storedSearchedQuery);
   const navigate = useNavigate();
-  const { data, isFetching } = swCharactersApi.useGetCharactersQuery(storedSearchedQuery);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { data, isFetching } = swCharactersApi.useGetCharactersQuery({
+    request: storedSearchedQuery,
+    page: pageNumber,
+  });
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -38,11 +42,14 @@ const Main = () => {
   const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputQuery(ev.target.value);
   };
+
   const handleSearchClick: () => void = () => {
+    setPageNumber(1);
     navigate('/');
     setStoredSearchedQuery(searchInputQuery);
     if (data) setSearchResults(data.results);
   };
+
   const toStart = (ev: React.MouseEvent<HTMLElement>) => {
     if (ev.currentTarget instanceof HTMLElement && ev.target instanceof HTMLElement) {
       if (ev.target === ev.currentTarget) {
@@ -51,6 +58,11 @@ const Main = () => {
       }
     }
     return;
+  };
+
+  const handleBtn = (page: number) => {
+    setPageNumber(page);
+    localStorage.setItem('gunsnfnr.swQuery', '');
   };
 
   return (
@@ -67,10 +79,12 @@ const Main = () => {
         {!isFetching && searchResults && (
           <>
             <Characters searchResults={searchResults} searchQuery={storedSearchedQuery} />
-            {searchResults.length > 0 && <Pagination />}
-            <SelectedElements />
+            {searchResults.length > 0 && (
+              <Pagination handleBtn={handleBtn} page={pageNumber} charactersOnThisPage={searchResults.length} />
+            )}
           </>
         )}
+        <SelectedElements />
       </section>
     </main>
   );
