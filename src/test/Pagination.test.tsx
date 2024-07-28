@@ -11,7 +11,7 @@ describe('test Pagination', () => {
     };
     render(
       <Provider store={store}>
-        <Pagination handleBtn={handleBtn} page={1} charactersOnThisPage={10} />
+        <Pagination handleBtn={handleBtn} page={1} nextPage={null} />
       </Provider>,
     );
 

@@ -3,10 +3,8 @@ import style from './Pagination.module.css';
 interface PaginationProps {
   handleBtn: (page: number) => void;
   page: number;
-  charactersOnThisPage: number;
+  nextPage: string | null;
 }
-
-const MAX_ITEMS_PER_PAGE = 10;
 
 const Pagination = (props: PaginationProps) => {
   const handleNavBtn = (page: number) => {
@@ -26,7 +24,7 @@ const Pagination = (props: PaginationProps) => {
       <button
         className={style.next}
         onClick={() => handleNavBtn(props.page + 1)}
-        disabled={props.charactersOnThisPage < MAX_ITEMS_PER_PAGE ? true : false}
+        disabled={!props.nextPage ? true : false}
       >
         Next
       </button>

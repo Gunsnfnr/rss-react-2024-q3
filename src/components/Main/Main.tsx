@@ -21,6 +21,8 @@ export interface Character {
 
 export interface CharactersData {
   results: Character[];
+  previous: string | null;
+  next: string | null;
 }
 
 const Main = () => {
@@ -69,8 +71,8 @@ const Main = () => {
         {!isFetching && searchResults && (
           <>
             <Characters searchResults={searchResults} searchQuery={storedSearchedQuery} />
-            {searchResults.length > 0 && (
-              <Pagination handleBtn={handleBtn} page={pageNumber} charactersOnThisPage={searchResults.length} />
+            {searchResults.length > 0 && data && (
+              <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={data.next} />
             )}
           </>
         )}
