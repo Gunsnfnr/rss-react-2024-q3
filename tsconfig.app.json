@@ -21,7 +21,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    /* v-test */
+    "types": ["vitest/globals"]
   },
-  "include": ["./src/"]
+  "include": ["./src/", ".src/test/setup.ts"]
 }
