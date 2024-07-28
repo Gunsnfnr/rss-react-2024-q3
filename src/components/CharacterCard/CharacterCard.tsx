@@ -50,6 +50,7 @@ const CharacterCard = (props: Props) => {
             event.stopPropagation();
           }}
           onChange={handleCheckboxChange}
+          title="Click to choose"
         />
         <div className={style.name}>{props.character.name}</div>
       </div>

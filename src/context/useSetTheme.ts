@@ -6,7 +6,7 @@ const useSetTheme = () => {
 
   const changeTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    window.localStorage.setItem('gunsnfnr.sw-theme', newTheme);
+    localStorage.setItem('gunsnfnr.sw-theme', newTheme);
     setTheme(newTheme);
   };
 
