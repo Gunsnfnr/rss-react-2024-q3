@@ -1,0 +1,27 @@
+:root {
+  --buttons-border: #e1e1e1;
+}
+
+.button,
+.button_light {
+  border-radius: 5px;
+  border: 1px solid var(--buttons-border);
+  padding: 0.2rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: #7b87ba;
+  cursor: pointer;
+  color: #fff;
+  transition: background-color 0.25s;
+}
+
+.button:hover,
+.button_light:hover {
+  border-color: silver;
+  background-color: rgb(165, 175, 221);
+}
+
+.button_light {
+  --buttons-border: #100f47;
+}
