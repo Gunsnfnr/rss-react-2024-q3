@@ -50,16 +50,6 @@ const Main = () => {
     if (data) setSearchResults(data.results);
   };
 
-  const toStart = (ev: React.MouseEvent<HTMLElement>) => {
-    if (ev.currentTarget instanceof HTMLElement && ev.target instanceof HTMLElement) {
-      if (ev.target === ev.currentTarget) {
-        navigate('/');
-        return;
-      }
-    }
-    return;
-  };
-
   const handleBtn = (page: number) => {
     setPageNumber(page);
     localStorage.setItem('gunsnfnr.swQuery', '');
@@ -74,7 +64,7 @@ const Main = () => {
         </button>
         <ChangeThemeButton />
       </section>
-      <section className={style.results} onClick={toStart}>
+      <section className={style.results}>
         {isFetching && <div className={style.loading}>Loading...</div>}
         {!isFetching && searchResults && (
           <>
