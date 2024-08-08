@@ -1,17 +1,20 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { store } from '../store';
 import { Provider } from 'react-redux';
 import ChangeThemeButton from '../components/ChangeThemeButton/ChangeThemeButton';
-import App from '../App';
+import Home from '../pages';
+import { mockCharactersData } from './mocks/mockCharactersData';
+
+vi.mock('next/router', () => vi.importActual('next-router-mock'));
 
 describe('test App', () => {
   test('test render App', () => {
     render(
       <MemoryRouter>
         <Provider store={store}>
-          <App />
+          <Home charactersData={mockCharactersData} characterData={null} />
         </Provider>
       </MemoryRouter>,
     );
@@ -19,19 +22,6 @@ describe('test App', () => {
 
     expect(textOntheButton).toBeInTheDocument();
   });
-});
-
-test('test render App loading', () => {
-  render(
-    <MemoryRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </MemoryRouter>,
-  );
-  const text = screen.getByText('Loading...');
-
-  expect(text).toBeInTheDocument();
 });
 
 describe('test ChangeThemeButton', () => {
