@@ -14,12 +14,13 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'error',
     'react-compiler/react-compiler': 'error',
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': ['off', { allowConstantExport: true }],
   },
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', 'tsconfig.app.json'],
+    project: ['tsconfig.app.json', './tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
   settings: {
@@ -27,4 +28,5 @@ module.exports = {
       version: 'detect',
     },
   },
+  ignorePatterns: ['next.config.mjs'],
 };

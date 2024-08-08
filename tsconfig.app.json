@@ -22,8 +22,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    /* v-test */
+    /* vitest */
     "types": ["vitest/globals"]
   },
-  "include": ["./src/", ".src/test/setup.ts"]
+  "include": ["./src/", ".src/test/setup.ts", "./dist/types/**/*.ts", "./next-env.d.ts"],
+  "exclude": ["./node_modules"]
 }
