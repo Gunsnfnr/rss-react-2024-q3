@@ -5,8 +5,6 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import CharacterDetails from '../components/CharacterDetails/CharacterDetails';
 
 export const getServerSideProps = (async (context) => {
-  console.log('context.query: ', context.query);
-
   const charactersData = await fetch(
     `https://swapi.dev/api/people/?search=${context.query.search as string}&page=${context.query.page ? (context.query.page as string) : 1}`,
   )
