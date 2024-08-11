@@ -1,13 +1,13 @@
-import React, { ReactNode, useContext, useState } from 'react';
+'use client';
+import React, { ReactNode, Suspense, useContext, useEffect, useState } from 'react';
 import Characters from '../Characters/Characters';
 import style from './Main.module.css';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import Pagination from '../Pagination/Pagination';
-import { useRouter } from 'next/router';
-import SelectedElements from '../SelectedElements/SelectedElements';
+import { useRouter } from 'next/navigation';
 import ChangeThemeButton from '../ChangeThemeButton/ChangeThemeButton';
 import { ThemeContext } from '../../context/themeContext';
-import useLoading from '../../hooks/useLoading';
+import SelectedElements from '../SelectedElements/SelectedElements';
 
 export interface Character {
   name: string;
@@ -39,13 +39,16 @@ const Main = ({ charactersData }: { charactersData: CharactersData }, { children
   const [storedSearchedQuery, setStoredSearchedQuery] = useLocalStorage('');
 
   const [pageNumber, setPageNumber] = useState(1);
+
+  useEffect(() => {
+    router.push(`/?search=${storedSearchedQuery}&page=${pageNumber}`);
+  }, [storedSearchedQuery, pageNumber, router]);
+
   const [searchInputQuery, setSearchInputQuery] = useState(() => {
     if (typeof window === 'undefined') return '';
-    router.push(`/?search=${storedSearchedQuery}&page=${pageNumber}`).catch(() => {});
     return storedSearchedQuery;
   });
 
-  const [isLoading] = useLoading();
   const { theme } = useContext(ThemeContext);
   const isLocalStorageAvailable = typeof window !== 'undefined';
 
@@ -56,12 +59,12 @@ const Main = ({ charactersData }: { charactersData: CharactersData }, { children
   const handleSearchClick: () => void = () => {
     setPageNumber(1);
     if (typeof searchInputQuery === 'string') setStoredSearchedQuery(searchInputQuery);
-    router.push(`/?search=${searchInputQuery}&page=${1}`).catch(() => {});
+    router.push(`/?search=${searchInputQuery}&page=${1}`);
   };
 
   const handleBtn = (page: number) => {
     setPageNumber(page);
-    router.push(`/?search=${searchInputQuery}&page=${page}`).catch(() => {});
+    router.push(`/?search=${searchInputQuery}&page=${page}`);
     if (isLocalStorageAvailable) localStorage.setItem('gunsnfnr.swQuery', '');
   };
 
@@ -75,15 +78,16 @@ const Main = ({ charactersData }: { charactersData: CharactersData }, { children
         <ChangeThemeButton />
       </section>
       <section className={style.results}>
-        {isLoading && <div className={style.loading}>Loading...</div>}
-        {!isLoading && charactersData.results && (
-          <>
-            <Characters searchResults={charactersData.results} />
-            {children}
-            {charactersData.results.length > 0 && charactersData && (
-              <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={charactersData.next} />
-            )}
-          </>
+        {charactersData && charactersData.results && (
+          <Suspense key={searchInputQuery} fallback={<div className={style.loading}>Loading...</div>}>
+            <>
+              <Characters searchResults={charactersData.results} />
+              {children}
+              {charactersData.results.length > 0 && (
+                <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={charactersData.next} />
+              )}
+            </>
+          </Suspense>
         )}
         <SelectedElements />
       </section>
