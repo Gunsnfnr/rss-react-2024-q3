@@ -6,7 +6,7 @@ import { mockCharacter, mockCharacter2 } from './mocks/mockCharacters';
 import { store } from '../store';
 import { Provider } from 'react-redux';
 
-vi.mock('next/router', () => vi.importActual('next-router-mock'));
+vi.mock('next/navigation', () => vi.importActual('next-router-mock'));
 
 describe('test CharacterCard', () => {
   test('test render checkbox', () => {

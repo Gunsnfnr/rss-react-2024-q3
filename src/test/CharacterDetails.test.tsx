@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { mockCharacter } from './mocks/mockCharacters';
 
-vi.mock('next/router', () => vi.importActual('next-router-mock'));
+vi.mock('next/navigation', () => vi.importActual('next-router-mock'));
 
 describe('test CharacterDetails', () => {
   test('test loading CharacterDetails', () => {

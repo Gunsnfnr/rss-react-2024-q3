@@ -6,7 +6,7 @@ import { store } from '../store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-vi.mock('next/router', () => vi.importActual('next-router-mock'));
+vi.mock('next/navigation', () => vi.importActual('next-router-mock'));
 
 describe('test Characters', () => {
   test('test render', () => {

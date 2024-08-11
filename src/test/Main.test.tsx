@@ -6,7 +6,16 @@ import { Provider } from 'react-redux';
 import Main from '../components/Main/Main';
 import { mockCharactersData } from './mocks/mockCharactersData';
 
-vi.mock('next/router', () => vi.importActual('next-router-mock'));
+vi.mock('next/navigation', () => {
+  return {
+    useRouter: vi.fn(() => ({
+      push: vi.fn(),
+    })),
+    useSearchParams: vi.fn(() => ({
+      get: vi.fn(),
+    })),
+  };
+});
 
 describe('test Main', () => {
   test('test render Main', () => {
