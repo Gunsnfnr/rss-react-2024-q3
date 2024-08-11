@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCard, removeCard } from '../../store/cardsSlice';
 import { RootState } from '../../store';
 import { ThemeContext } from '../../context/themeContext';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   character: Character;
@@ -41,8 +41,11 @@ const CharacterCard = (props: Props) => {
   };
 
   const handleCharacterCardClick = () => {
-    if (typeof router.query.search === 'string' && typeof router.query.page === 'string')
-      router.push(`/?search=${router.query.search}&page=${router.query.page}&id=${id}`).catch(() => {});
+    if (typeof window === 'undefined') return null;
+    const params = new URL(window.location.href).searchParams;
+    const search = params.get('search');
+    const page = params.get('page');
+    if (typeof search === 'string' && typeof page === 'string') router.push(`/?search=${search}&page=${page}&id=${id}`);
   };
 
   return (
