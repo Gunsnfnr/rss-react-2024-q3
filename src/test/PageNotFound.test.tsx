@@ -1,13 +1,15 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { screen, render } from '@testing-library/react';
-import PageNotFound from '../components/PageNotFound/PageNotFound';
 import { BrowserRouter } from 'react-router-dom';
+import NotFound from '../app/not-found';
+
+vi.mock('next/navigation', () => vi.importActual('next-router-mock'));
 
 describe('test PageNotFound', () => {
   test('test render PageNotFound', () => {
     render(
       <BrowserRouter>
-        <PageNotFound />
+        <NotFound />
       </BrowserRouter>,
     );
 

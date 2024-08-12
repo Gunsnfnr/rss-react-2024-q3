@@ -4,7 +4,6 @@ import EmptyResult from '../EmptyResult/EmptyResult';
 
 interface CharacterProps {
   searchResults: Character[];
-  searchQuery: string;
 }
 
 const Characters = (props: CharacterProps) => {
@@ -15,7 +14,7 @@ const Characters = (props: CharacterProps) => {
       ))}
     </>
   ) : (
-    <EmptyResult searchQuery={props.searchQuery} />
+    <EmptyResult />
   );
 };
 

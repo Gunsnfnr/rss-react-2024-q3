@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import style from './PageNotFound.module.css';
+import Link from 'next/link';
+import style from './Page404.module.css';
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <div className={style.page_wrapper}>
       <div className={style.not_found_info}>
         <div className={style.not_found}>Page not found</div>
-        <Link to="/">
+        <Link href="/">
           <button type="button" className={style.to_main_button}>
             Back to the main page
           </button>
@@ -16,4 +16,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;

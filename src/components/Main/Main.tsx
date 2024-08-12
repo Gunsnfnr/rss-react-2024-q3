@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+'use client';
+import React, { ReactNode, Suspense, useContext, useEffect, useState } from 'react';
 import Characters from '../Characters/Characters';
 import style from './Main.module.css';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import Pagination from '../Pagination/Pagination';
-import { useNavigate } from 'react-router-dom';
-import { swCharactersApi } from '../../store/apiSlice';
-import SelectedElements from '../SelectedElements/SelectedElements';
+import { useRouter } from 'next/navigation';
 import ChangeThemeButton from '../ChangeThemeButton/ChangeThemeButton';
 import { ThemeContext } from '../../context/themeContext';
+import SelectedElements from '../SelectedElements/SelectedElements';
 
 export interface Character {
   name: string;
@@ -25,21 +25,32 @@ export interface CharactersData {
   next: string | null;
 }
 
-const Main = () => {
-  const [searchResults, setSearchResults] = useState<Character[] | undefined>([]);
+export interface CharactersParams {
+  request: string;
+  page?: number;
+}
+
+interface childrenProps {
+  children: ReactNode;
+}
+
+const Main = ({ charactersData }: { charactersData: CharactersData }, { children }: childrenProps) => {
+  const router = useRouter();
   const [storedSearchedQuery, setStoredSearchedQuery] = useLocalStorage('');
-  const [searchInputQuery, setSearchInputQuery] = useState(storedSearchedQuery);
-  const navigate = useNavigate();
+
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, isFetching } = swCharactersApi.useGetCharactersQuery({
-    request: storedSearchedQuery,
-    page: pageNumber,
-  });
-  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    if (data) setSearchResults(data.results);
-  }, [data, theme]);
+    router.push(`/?search=${storedSearchedQuery}&page=${pageNumber}`);
+  }, [storedSearchedQuery, pageNumber, router]);
+
+  const [searchInputQuery, setSearchInputQuery] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    return storedSearchedQuery;
+  });
+
+  const { theme } = useContext(ThemeContext);
+  const isLocalStorageAvailable = typeof window !== 'undefined';
 
   const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputQuery(ev.target.value);
@@ -47,14 +58,14 @@ const Main = () => {
 
   const handleSearchClick: () => void = () => {
     setPageNumber(1);
-    navigate('/');
-    setStoredSearchedQuery(searchInputQuery);
-    if (data) setSearchResults(data.results);
+    if (typeof searchInputQuery === 'string') setStoredSearchedQuery(searchInputQuery);
+    router.push(`/?search=${searchInputQuery}&page=${1}`);
   };
 
   const handleBtn = (page: number) => {
     setPageNumber(page);
-    localStorage.setItem('gunsnfnr.swQuery', '');
+    router.push(`/?search=${searchInputQuery}&page=${page}`);
+    if (isLocalStorageAvailable) localStorage.setItem('gunsnfnr.swQuery', '');
   };
 
   return (
@@ -67,14 +78,16 @@ const Main = () => {
         <ChangeThemeButton />
       </section>
       <section className={style.results}>
-        {isFetching && <div className={style.loading}>Loading...</div>}
-        {!isFetching && searchResults && (
-          <>
-            <Characters searchResults={searchResults} searchQuery={storedSearchedQuery} />
-            {searchResults.length > 0 && data && (
-              <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={data.next} />
-            )}
-          </>
+        {charactersData && charactersData.results && (
+          <Suspense key={searchInputQuery} fallback={<div className={style.loading}>Loading...</div>}>
+            <>
+              <Characters searchResults={charactersData.results} />
+              {children}
+              {charactersData.results.length > 0 && (
+                <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={charactersData.next} />
+              )}
+            </>
+          </Suspense>
         )}
         <SelectedElements />
       </section>

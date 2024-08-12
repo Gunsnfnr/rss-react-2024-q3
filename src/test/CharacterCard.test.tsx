@@ -1,10 +1,12 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { screen, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import { mockCharacter, mockCharacter2 } from './mocks/mockCharacters';
 import { store } from '../store';
 import { Provider } from 'react-redux';
+
+vi.mock('next/navigation', () => vi.importActual('next-router-mock'));
 
 describe('test CharacterCard', () => {
   test('test render checkbox', () => {

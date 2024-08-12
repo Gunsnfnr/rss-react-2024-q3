@@ -1,5 +1,13 @@
 :root {
-  --text: #fff;
+  --text: #ffffff;
+  --character-card-border: gold;
+  --card-back-hover: #2e2525;
+  --card-border: silver;
+  --buttons-border: #e1e1e1;
+  --card-back: #353535;
+  --backdrop: #070707;
+  --element-border: silver;
+  --flyout-background: #2e2525;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -10,4 +18,29 @@
 body {
   margin: 0;
   padding: 0;
+}
+
+button {
+  border-radius: 5px;
+  border: 1px solid var(--buttons-border);
+  padding: 0.2rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: #7b87ba;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+button:not(:disabled):hover {
+  border-color: var(--border-color);
+  background-color: rgb(165, 175, 221);
+}
+
+button:disabled {
+  border-color: #7b87ba;
+}
+
+a {
+  text-decoration: none;
 }

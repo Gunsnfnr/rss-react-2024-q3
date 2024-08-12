@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, PropsWithChildren, useMemo } from 'react';
 import useSetTheme from './useSetTheme';
 
