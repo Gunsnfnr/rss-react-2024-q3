@@ -8,7 +8,7 @@ export interface QueryArgument {
 
 export const swCharactersApi = createApi({
   reducerPath: 'swCharactersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.dev/api/people/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.py4e.com/api/people/' }),
   endpoints: (builder) => ({
     getCharacters: builder.query<CharactersData, QueryArgument>({
       query: (params: { request: string; page: number }) =>
