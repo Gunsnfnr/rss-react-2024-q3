@@ -1,0 +1,17 @@
+:root {
+  --text: #ffffff;
+}
+.empty,
+.empty_light {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.empty div,
+.empty_light div {
+  color: var(--text);
+}
+
+.empty_light div {
+  --text: #020202;
+}
