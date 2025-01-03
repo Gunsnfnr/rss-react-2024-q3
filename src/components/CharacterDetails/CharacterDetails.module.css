@@ -15,6 +15,7 @@
   color: var(--text);
   background-color: var(--card-back);
   z-index: 3;
+  position: relative;
 
   &:hover {
     background-color: var(--card-back-hover);
@@ -41,9 +42,19 @@
   opacity: 0.5;
 }
 
-@media screen and (max-width: 700px) {
-  .character_card {
-    border-radius: 0px;
+@media screen and (max-width: 600px) {
+  .character_card,
+  .character_card_light {
+    border-radius: 5px;
+    margin: 0 10px;
+    padding: 20px 50px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 700px) {
+  .character_card,
+  .character_card_light {
+    padding: 30px 80px;
   }
 }
 @media screen and (min-width: 700px) {
@@ -55,9 +66,8 @@
     right: 10%;
     top: 90px;
     padding: 50px;
-  }
-  .character_card {
     border-radius: 7px;
+    min-width: 150px;
   }
 }
 
@@ -66,21 +76,39 @@
   .character_card_light,
   .loading_card,
   .loading_card_light {
-    right: 15%;
+    right: 10%;
+    min-width: 200px;
   }
 }
 
 @media screen and (min-width: 800px) {
   .character_card,
   .character_card_light {
-    right: 20%;
+    right: 10%;
+    min-width: 250px;
   }
 }
 
+@media screen and (min-width: 950px) {
+  .character_card,
+  .character_card_light {
+    min-width: 300px;
+    padding-left: 60px;
+  }
+}
 @media screen and (min-width: 1100px) {
   .character_card,
   .character_card_light {
-    right: 30%;
+    right: 17%;
+    min-width: 400px;
+    padding: 60px 65px 80px 80px;
+  }
+}
+@media screen and (min-width: 1250px) {
+  .character_card,
+  .character_card_light {
+    right: 25%;
+    padding: 70px 70px 90px 120px;
   }
 }
 .name {

@@ -70,7 +70,9 @@ const Main = () => {
         {isFetching && <div className={style.loading}>Loading...</div>}
         {!isFetching && searchResults && (
           <>
-            <Characters searchResults={searchResults} searchQuery={storedSearchedQuery} />
+            <div className={style.characters}>
+              <Characters searchResults={searchResults} searchQuery={storedSearchedQuery} />
+            </div>
             {searchResults.length > 0 && data && (
               <Pagination handleBtn={handleBtn} page={pageNumber} nextPage={data.next} />
             )}

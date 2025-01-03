@@ -1,3 +1,12 @@
+html {
+  --background: #353535;
+  background-color: var(--background);
+}
+html:has(main.light) {
+  --background: #d4d4d4;
+  background-color: var(--background);
+}
+
 main {
   --border-color: silver;
   --buttons-border: #e1e1e1;
@@ -9,6 +18,7 @@ main {
   padding: 8px 0px;
   background-color: var(--background);
 }
+
 main.light {
   --border-color: rgb(54, 54, 54);
   --buttons-border: #100f47;
@@ -24,6 +34,7 @@ main.dark {
 
 .search {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 10px 0 20px 40px;
   border-bottom: 1px solid var(--border-color);
@@ -31,15 +42,40 @@ main.dark {
 
 .input_field {
   padding-left: 5px;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 700px) {
+  main {
+    height: fit-content;
+  }
+}
+@media screen and (max-width: 322px) {
+  .input_field {
+    width: 80%;
+    height: 27px;
+  }
+}
+
+.characters {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
 }
 
 .results {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  justify-content: space-between;
   max-width: 280px;
   padding: 10px 40px;
-  text-decoration: none;
+  min-height: 500px;
+}
+
+@media screen and (max-width: 700px) {
+  .results {
+    min-height: 250px;
+  }
 }
 
 .loading {
